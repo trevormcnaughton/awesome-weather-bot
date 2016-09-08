@@ -93,28 +93,28 @@ exports.handle = function handle(client) {
         callback()
       })
     },
+  })
 
-    const handleThanks = client.createStep({
-      satisfied() {
-        false
-      },
+  const handleThanks = client.createStep({
+    satisfied() {
+      false
+    },
 
-      prompt() {
-        client.addResponse('app:response:name:your_welcome')
-        client.done()
-      }
-    })
+    prompt() {
+      client.addResponse('app:response:name:youre_welcome')
+      client.done()
+    }
   })
 
   client.runFlow({
     classifications: {
-      'thanks': [thanks]
+      'thanks': 'thanks'
     },
     streams: {
       main: 'getWeather',
       hi: [sayHello],
       getWeather: [collectCity, provideWeather],
-      thanks: 'handleThanks'
+      thanks: [handleThanks]
     }
   })
 }
